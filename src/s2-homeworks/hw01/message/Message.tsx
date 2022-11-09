@@ -4,7 +4,7 @@ import {MessageType} from "../HW1";
 
 // нужно создать правильный тип вместо any
 export type MessagePropsType = {
-  message: MessageType
+    message: MessageType
 }
 
 
@@ -12,7 +12,7 @@ export type MessagePropsType = {
 const Message = (props: MessagePropsType) => {
     return (
         <div id={'hw1-message-' + props.message.id} className={s.message}>
-        {/*<div id='hw1-message-100' className={s.message}>*/}
+            {/*<div id='hw1-message-100' className={s.message}>*/}
             <div className={s.imageAndText}>
                 <img
                     id={'hw1-avatar-' + props.message.id}

@@ -3,8 +3,8 @@ import s from './FriendMessage.module.css'
 import {MessageType} from "../HW1";
 
 type MessagePropsType = {
-   message: MessageType
-    }
+    message: MessageType
+}
 
 // создать тип вместо any и отобразить приходящие данные
 const FriendMessage = (props: MessagePropsType) => {
