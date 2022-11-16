@@ -11,6 +11,11 @@
 }
 
 .text {
+    /*position: absolute;*/
+    /*right: 8px;*/
+    /*left: 13px;*/
+    /*top: 32px;*/
+    /*bottom: 8px;*/
 
 }
 
@@ -24,8 +29,10 @@
 
 .messageText {
 
+
 }
 
 .time {
+
 
 }
