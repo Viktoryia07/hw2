@@ -5,7 +5,7 @@ import s from './Affairs.module.css'
 
 type AffairsPropsType = {
     data: AffairType[] // need to fix any
-    setFilter: any
+    setFilter: (props:FilterType)=>void
     deleteAffairCallback: (_id: number) => void
     filter: FilterType
 }
