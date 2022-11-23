@@ -1,6 +1,7 @@
 .sendForm {
     margin-top: 200px;
     display: flex;
+    margin-left: 70px;
 }
 
 .textarea {
