@@ -5,12 +5,16 @@
 }
 
 .secondary {
+    color: red;
+    height: 80px;
 }
 
 .default {
+    color: dodgerblue;
 }
 
 .red {
+    color: red;
 }
 
 .default:hover {

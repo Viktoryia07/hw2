@@ -18,11 +18,21 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
     }
 ) => {
     const finalClassName = s.button
-        // + (disabled
-        //         ? ...
-        //         : xType === 'red'
-        //             ? ...
+        + (disabled
+                ? ' ' + s.disabled
+                : xType === 'red'
+                    ? ' ' + s.red
+                    : xType === 'secondary'
+                        ? ' ' + s.secondary
+                        : xType === "default"
+                            ? ' ' + s.default
+                            : '')
         + (className ? ' ' + className : '') // задачка на смешивание классов
+
+    // const classDisabled = disabled ? s.disabled : ''
+    // const sType = (xType && !disabled) ? s[xType] : ''
+    // const sClassName = className ? className : ''
+    // const qwe = `${s.button} ${classDisabled} ${sType} ${sClassName}`
 
     return (
         <button
@@ -34,3 +44,4 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
 }
 
 export default SuperButton
+
