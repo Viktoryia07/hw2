@@ -14,10 +14,9 @@ import {Loader} from './Loader'
 * */
 
 const HW10 = () => {
-    const loading = useSelector<AppStoreType, boolean>(state => state.loading.isLoading)
+    const isLoading = useSelector<AppStoreType, boolean>(state => state.loading.isLoading)
     const dispatch = useDispatch()
     // useSelector, useDispatch // пишет студент
-    const isLoading = false
 
     const setLoading = () => { // показать крутилку на 1,5 секунд
         dispatch(loadingAC(true))

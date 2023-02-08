@@ -5,7 +5,7 @@ const initState = {
 export const loadingReducer = (state = initState, action: LoadingActionType): typeof state=> { // fix any
     switch (action.type) {
         case 'CHANGE_LOADING':
-            return {...state,
+            return {
                 isLoading: action.isLoading
             }
 
