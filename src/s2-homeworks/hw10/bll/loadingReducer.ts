@@ -6,7 +6,7 @@ export const loadingReducer = (state = initState, action: LoadingActionType): ty
     switch (action.type) {
         case 'CHANGE_LOADING':
             return {...state,
-                isLoading: !state.isLoading
+                isLoading: action.isLoading
             }
 
         // пишет студент  // need to fix
