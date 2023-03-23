@@ -38,7 +38,7 @@ const HW13 = () => {
             .then((res) => {
                 setCode('Код 200!')
                 setImage(success200)
-                setText("It's okey")
+                setText('...всё ок)')
                 setInfo('200 OK («хорошо»)')
                 setDisable(false)
                 // дописать
@@ -48,12 +48,12 @@ const HW13 = () => {
                 if (e.response.status === 400) {
                     setCode('Код 400!')
                     setImage(error400)
-                    setText("It's not okey")
+                    setText('эмитация ошибки на сервере')
                     setInfo('400 Bad Request («неправильный, некорректный запрос»)')
                 } else if (e.response.status === 500) {
                     setCode('Код 500!')
                     setImage(error500)
-                    setText("It's not okey")
+                    setText('Ты не отправил success в body вообще!')
                     setInfo('500 Internal Server Error («внутренняя ошибка сервера»)')
                 }
                 else {
