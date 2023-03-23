@@ -47,19 +47,18 @@ const HW13 = () => {
             })
             .catch((e) => {
                 if (e.response.status === 400) {
-                    setCode('Код 400!')
                     setImage(error400)
+                    setCode('Ошибка 400!')
                     setText('Ты не отправил success в body вообще!')
-                    setInfo('400 Bad Request («неправильный, некорректный запрос»)')
+                    setInfo('ошибка 400 - обычно означает что скорее всего фронт отправил что-то не то на бэк!')
                 } else if (e.response.status === 500) {
-                    setCode('Код 500!')
                     setImage(error500)
+                    setCode('Ошибка 500!')
                     setText('эмитация ошибки на сервере')
-                    setInfo('500 Internal Server Error («внутренняя ошибка сервера»)')
-                }
-                else {
-                    setCode('Unknown error!')
+                    setInfo('ошибка 500 - обычно означает что что-то сломалось на сервере, например база данных)')
+                } else {
                     setImage(errorUnknown)
+                    setCode('Error!')
                     setText(e.message)
                     setInfo(e.name)
                 }
