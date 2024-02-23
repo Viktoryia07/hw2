@@ -1,19 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import s2 from '../../s1-main/App.module.css'
 import s from './HW15.module.css'
 import axios from 'axios'
-import SuperPagination from './common/c9-SuperPagination/SuperPagination'
 import {useSearchParams} from 'react-router-dom'
 import SuperSort from './common/c10-SuperSort/SuperSort'
-
-/*
-* 1 - дописать SuperPagination
-* 2 - дописать SuperSort
-* 3 - проверить pureChange тестами
-* 3 - дописать sendQuery, onChangePagination, onChangeSort в HW15
-* 4 - сделать стили в соответствии с дизайном
-* 5 - добавить HW15 в HW5/pages/JuniorPlus
-* */
+import SuperPagination from "./common/c9-SuperPagination/SuperPagination";
+import {Loader} from "../hw10/Loader";
 
 type TechType = {
     id: number
@@ -35,13 +27,14 @@ const getTechs = (params: ParamsType) => {
         )
         .catch((e) => {
             alert(e.response?.data?.errorText || e.message)
+            return undefined
         })
 }
 
 const HW15 = () => {
     const [sort, setSort] = useState('')
     const [page, setPage] = useState(1)
-    const [count, setCount] = useState(4)
+    const [count, setCount] = useState(10)
     const [idLoading, setLoading] = useState(false)
     const [totalCount, setTotalCount] = useState(100)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -51,8 +44,7 @@ const HW15 = () => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
-                if (res) {
+                if (res !== undefined) {
                     setTechs(res.data.techs)
                     setTotalCount(res.data.totalCount)
                     setLoading(false)
@@ -60,22 +52,19 @@ const HW15 = () => {
             })
     }
 
-    const onChangePagination = useCallback((newPage: number, newCount: number) => {
-        // делает студент
+    const onChangePagination = (newPage: number, newCount: number) => {
         setPage(newPage)
         setCount(newCount)
-        setSearchParams({page: newPage.toString(), count: newCount.toString(), sort})
-    }, [searchParams])
+        sendQuery({sort, page: newPage, count: newCount});
+        setSearchParams({page: newPage.toString(), count: newCount.toString()});
+    }
 
-
-    const onChangeSort = useCallback((newSort: string) => {
-        // делает студент
-        setSort(newSort)
-        setPage(1)
-        sendQuery({sort: newSort, page: 1, count})
-        setSearchParams({page: "1", count: count.toString(), sort: newSort})
-    }, [setSearchParams])
-
+    const onChangeSort = (newSort: string) => {
+        setSort(newSort);
+        setPage(1);
+        sendQuery({sort: newSort, page: 1, count});
+        setSearchParams({sort: newSort, page: '1', count: count.toString()});
+    }
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
@@ -83,7 +72,7 @@ const HW15 = () => {
         setPage(+params.page || 1)
         setCount(+params.count || 4)
     }, [])
-    
+
     const mappedTechs = techs.map(t => (
         <div key={t.id} className={s.row}>
             <div id={'hw15-tech-' + t.id} className={s.tech}>
@@ -97,11 +86,8 @@ const HW15 = () => {
     ))
     return (
         <div id={'hw15'}>
-            <div className={s2.hwTitle}>Homework #15</div>
-
+            <div className={s2.hwTitle}>Task #15</div>
             <div className={s2.hw}>
-                {idLoading && <div id={'hw15-loading'} className={s.loading}>Loading...</div>}
-
                 <SuperPagination
                     page={page}
                     itemsCountForPage={count}
@@ -111,20 +97,19 @@ const HW15 = () => {
 
                 <div className={s.rowHeader}>
                     <div className={s.techHeader}>
-                        tech
+                        Tech
                         <SuperSort sort={sort} value={'tech'} onChange={onChangeSort}/>
                     </div>
 
                     <div className={s.developerHeader}>
-                        developer
+                        Developer
                         <SuperSort sort={sort} value={'developer'} onChange={onChangeSort}/>
                     </div>
                 </div>
-
-                {mappedTechs}
+                <div className={s.loading}>{idLoading && <Loader/>}</div>
+                {!idLoading && mappedTechs}
             </div>
         </div>
     )
 }
-
 export default HW15

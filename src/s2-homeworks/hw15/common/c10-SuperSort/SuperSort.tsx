@@ -1,9 +1,11 @@
-import React, {memo} from 'react'
+import React from 'react'
 
-// добавить в проект иконки и импортировать
-// const downIcon = iconDown
-// const upIcon = iconUp
+// const downIcon = '[\\/]'
+// const upIcon = '[/\\]'
 // const noneIcon = '[--]'
+const downIcon = '▼'; // Символ Юникода для стрелки вниз
+const upIcon = '▲'; // Символ Юникода для стрелки вверх
+const noneIcon = ' 🡘'; // Символ Юникода для двусторонней стрелки
 
 export type SuperSortPropsType = {
     id?: string
@@ -13,16 +15,16 @@ export type SuperSortPropsType = {
 }
 
 export const pureChange = (sort: string, down: string, up: string) => {
-    // пишет студент,
-    // sort: (click) => down (click) => up (click) => '' (click) => down ...
-
-
-    if (sort === down) return up
-    if (sort === up) return ''
-    return down
+    if (sort === down) {
+        return up;
+    } else if (sort === up) {
+        return '';
+    } else {
+        return down;
+    }
 }
 
-const SuperSort: React.FC<SuperSortPropsType> = memo((
+const SuperSort: React.FC<SuperSortPropsType> = (
     {
         sort, value, onChange, id = 'hw15',
     }
@@ -34,23 +36,18 @@ const SuperSort: React.FC<SuperSortPropsType> = memo((
         onChange(pureChange(sort, down, up))
     }
 
-
+    const icon = sort === down ? downIcon : sort === up ? upIcon : noneIcon;
 
     return (
         <span
             id={id + '-sort-' + value}
             onClick={onChangeCallback}
         >
-            {/*сделать иконку*/}
-            <img
-                id={id + '-icon-' + sort}
-                style={{width: '15px', height: '15px', marginLeft: '5px'}}
-                alt={id + '-icon-' + sort}
-            />
-
-            {/*{icon} /!*а это убрать*!/*/}
+            <span id={id + '-sort-' + value} onClick={onChangeCallback}>
+                <span id={id + '-icon-' + sort}>{icon}</span>
+        </span>
         </span>
     )
-})
+}
 
 export default SuperSort
