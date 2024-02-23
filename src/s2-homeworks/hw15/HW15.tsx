@@ -72,8 +72,10 @@ const HW15 = () => {
         // делает студент
         setSort(newSort)
         setPage(1)
+        sendQuery({sort: newSort, page: 1, count})
         setSearchParams({page: "1", count: count.toString(), sort: newSort})
     }, [setSearchParams])
+
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
