@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {memo} from 'react'
 
 // добавить в проект иконки и импортировать
-const downIcon = '[\\/]'
-const upIcon = '[/\\]'
-const noneIcon = '[--]'
+// const downIcon = iconDown
+// const upIcon = iconUp
+// const noneIcon = '[--]'
 
 export type SuperSortPropsType = {
     id?: string
@@ -13,11 +13,16 @@ export type SuperSortPropsType = {
 }
 
 export const pureChange = (sort: string, down: string, up: string) => {
-    // пишет студент, sort: (click) => down (click) => up (click) => '' (click) => down ...
-    return up // исправить
+    // пишет студент,
+    // sort: (click) => down (click) => up (click) => '' (click) => down ...
+
+
+    if (sort === down) return up
+    if (sort === up) return ''
+    return down
 }
 
-const SuperSort: React.FC<SuperSortPropsType> = (
+const SuperSort: React.FC<SuperSortPropsType> = memo((
     {
         sort, value, onChange, id = 'hw15',
     }
@@ -29,11 +34,7 @@ const SuperSort: React.FC<SuperSortPropsType> = (
         onChange(pureChange(sort, down, up))
     }
 
-    const icon = sort === down
-        ? downIcon
-        : sort === up
-            ? upIcon
-            : noneIcon
+
 
     return (
         <span
@@ -41,14 +42,15 @@ const SuperSort: React.FC<SuperSortPropsType> = (
             onClick={onChangeCallback}
         >
             {/*сделать иконку*/}
-            {/*<img*/}
-            {/*    id={id + '-icon-' + sort}*/}
-            {/*    src={icon}*/}
-            {/*/>*/}
+            <img
+                id={id + '-icon-' + sort}
+                style={{width: '15px', height: '15px', marginLeft: '5px'}}
+                alt={id + '-icon-' + sort}
+            />
 
-            {icon} {/*а это убрать*/}
+            {/*{icon} /!*а это убрать*!/*/}
         </span>
     )
-}
+})
 
 export default SuperSort

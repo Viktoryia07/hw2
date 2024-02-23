@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import s2 from '../../s1-main/App.module.css'
 import s from './HW15.module.css'
 import axios from 'axios'
@@ -52,36 +52,28 @@ const HW15 = () => {
         getTechs(params)
             .then((res) => {
                 // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                if (res) {
+                    setTechs(res.data.techs)
+                    setTotalCount(res.data.totalCount)
+                    setLoading(false)
+                }
             })
     }
 
-    const onChangePagination = (newPage: number, newCount: number) => {
+    const onChangePagination = useCallback((newPage: number, newCount: number) => {
         // делает студент
+        setPage(newPage)
+        setCount(newCount)
+        setSearchParams({page: newPage.toString(), count: newCount.toString(), sort})
+    }, [searchParams])
 
-        // setPage(
-        // setCount(
 
-        // sendQuery(
-        // setSearchParams(
-
-        //
-    }
-
-    const onChangeSort = (newSort: string) => {
+    const onChangeSort = useCallback((newSort: string) => {
         // делает студент
-
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
-    }
+        setSort(newSort)
+        setPage(1)
+        setSearchParams({page: "1", count: count.toString(), sort: newSort})
+    }, [setSearchParams])
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
@@ -89,7 +81,7 @@ const HW15 = () => {
         setPage(+params.page || 1)
         setCount(+params.count || 4)
     }, [])
-
+    
     const mappedTechs = techs.map(t => (
         <div key={t.id} className={s.row}>
             <div id={'hw15-tech-' + t.id} className={s.tech}>
@@ -101,7 +93,6 @@ const HW15 = () => {
             </div>
         </div>
     ))
-
     return (
         <div id={'hw15'}>
             <div className={s2.hwTitle}>Homework #15</div>
